@@ -16,17 +16,20 @@ class Project {
     tasks.put(t.name, t)
   }
 
-  def methodMissing(String name, args) {
-    // WARNING this is not thread safe
-    // TODO if it's not a closure, throw an exception
+  def methodMissing(String name, Object args) {
+    if (args.length != 1 || !(args[0] instanceof Closure)) {
+      throw new MissingMethodException(name, Project.class, args)
+    }
+
+    Closure c = (Closure) args[0]
     Task t = tasks.get(name)
     if (t == null) {
       t = new Task()
       t.name = name
-      t.code.add ((Closure) args[0])
+      t.code.add(c)
       return t
     } else {
-      t.code.add((Closure) args[0])
+      t.code.add(c)
     }
   }
 
