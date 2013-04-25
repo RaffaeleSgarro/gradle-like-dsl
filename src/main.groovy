@@ -45,6 +45,8 @@ class Project {
   }
 }
 
+// Instead of reading an external file, just use this for the sake
+// of simplicity
 buildScript = {
   task whatAmI {
     println "Configuring project $name"
@@ -59,4 +61,4 @@ buildScript = {
   }
 }
 
-new Project(":foo:bar:baz").run buildScript
+new Project("My aswesome app").run buildScript
