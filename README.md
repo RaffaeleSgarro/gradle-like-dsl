@@ -24,11 +24,11 @@ The current `Project` delegate may use `methodMissing` to add
 a task with the given name, but how can it differentiate between
 these two:
 
-   // Ok, task definition
-   task foo { println "Foo" }
+    // Ok, task definition
+    task foo { println "Foo" }
 
-   // Throws an exception, method not found
-   bar { println "Bar" }
+    // Should throw MissingMethod, because we don't use task()
+    bar { println "Bar" }
 
 In fact, my current implementation lacks with respect to this
 sort of error detection. I'd like to build tasks with the Gradle
